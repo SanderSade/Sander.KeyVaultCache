@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sander.KeyVaultCache</name>
+    </assembly>
+    <members>
+        <member name="T:Sander.KeyVaultCache.KeyVaultCache">
+            <summary>
+            Key vault cache. Use this class as singleton/static per KeyVault instance
+            </summary>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.#ctor(Microsoft.Azure.KeyVault.KeyVaultClient,System.TimeSpan)">
+            <summary>
+            Create a new instance of KeyVaultCache, optionally defining expiration duration for caching
+            <para>Omitting the duration or using in the default TimeSpan instance marks infinite duration (no expiration)</para>
+            </summary>
+            <param name="keyVaultClient">Exsisting KeyVault client instance</param>
+            <param name="cachingDuration">Optional caching duration. Omit the parameter for infinite caching (no expiration)</param>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.#ctor(Microsoft.Azure.KeyVault.KeyVaultClient,System.UInt32)">
+            <summary>
+            Create a new instance of KeyVaultCache, optionally defining expiration duration for caching
+            <para>Omitting the cachingDurationSeconds or using in 0 results infinite duration (no expiration)</para>
+            </summary>
+            <param name="keyVaultClient">Exsisting KeyVault client instance</param>
+            <param name="cachingDurationSeconds">Optional caching duration in seconds. Omit the parameter or use 0 for infinite caching (no expiration)</param>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.Remove(System.String)">
+            <summary>
+            Remove specific item from cache
+            </summary>
+        </member>
+    </members>
+</doc>
