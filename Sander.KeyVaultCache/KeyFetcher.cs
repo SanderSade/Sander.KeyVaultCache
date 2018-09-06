@@ -66,6 +66,9 @@ namespace Sander.KeyVaultCache
 					{
 						var value = await FetchValue<T>(name);
 
+						if (value == null)
+							throw new NullReferenceException($"KeyVault request {typeof(T).Name} for \"{name}\" returned null!");
+
 						var cachePolicy = new CacheItemPolicy();
 
 						if (_cachingDuration != TimeSpan.Zero)
@@ -95,25 +98,17 @@ namespace Sander.KeyVaultCache
 		private async Task<T> FetchValue<T>(string name) where T : class
 		{
 			var type = typeof(T);
-			object value;
 			switch (true)
 			{
 				case bool _ when type == typeof(SecretBundle):
-					value = await _keyVaultClient.GetSecretAsync(name).ConfigureAwait(false);
-					break;
+					return await _keyVaultClient.GetSecretAsync(name).ConfigureAwait(false) as T;
 				case bool _ when type == typeof(CertificateBundle):
-					value = await _keyVaultClient.GetCertificateAsync(name).ConfigureAwait(false);
-					break;
+					return await _keyVaultClient.GetCertificateAsync(name).ConfigureAwait(false) as T;
 				case bool _ when type == typeof(KeyBundle):
-					value = await _keyVaultClient.GetKeyAsync(name).ConfigureAwait(false);
-					break;
+					return await _keyVaultClient.GetKeyAsync(name).ConfigureAwait(false) as T;
 				default:
 					throw new NotImplementedException($"Oops?! Wrong type in {nameof(KeyFetcher)}.{nameof(GetBundle)}");
 			}
-
-			return value == null
-				? throw new NullReferenceException(FormattableString.Invariant($"KeyVault request {type.Name} for \"{name}\" returned null!"))
-				: value as T;
 		}
 
 
