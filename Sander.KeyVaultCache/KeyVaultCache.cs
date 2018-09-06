@@ -15,12 +15,12 @@ namespace Sander.KeyVaultCache
 
 
 		/// <summary>
-		/// Create a new instance of KeyVaultCache, optionally defining expiration duration for caching
-		/// <para>Omitting the duration or using in the default TimeSpan instance marks infinite duration (no expiration)</para>
+		/// Create a new instance of KeyVaultCache, defining expiration duration for caching
+		/// <para>Use TimeSpan.Zero for infinite duration (no expiration)</para>
 		/// </summary>
-		/// <param name="keyVaultClient">Exsisting KeyVault client instance</param>
-		/// <param name="cachingDuration">Optional caching duration. Omit the parameter for infinite caching (no expiration)</param>
-		public KeyVaultCache(KeyVaultClient keyVaultClient, TimeSpan cachingDuration = default(TimeSpan))
+		/// <param name="keyVaultClient">Existing KeyVault client instance</param>
+		/// <param name="cachingDuration">Caching duration. Use TimeSpan.Zero for infinite caching (no expiration)</param>
+		public KeyVaultCache(KeyVaultClient keyVaultClient, TimeSpan cachingDuration)
 		{
 			if (keyVaultClient == null)
 				throw new NullReferenceException($"{nameof(keyVaultClient)} is null!");
@@ -30,16 +30,25 @@ namespace Sander.KeyVaultCache
 
 
 		/// <summary>
-		/// Create a new instance of KeyVaultCache, optionally defining expiration duration for caching
-		/// <para>Omitting the cachingDurationSeconds or using in 0 results infinite duration (no expiration)</para>
+		/// Create a new instance of KeyVaultCache, defining expiration duration for caching in seconds)
+		/// <para>Using expiration of 0 seconds results infinite duration (no expiration)</para>
 		/// </summary>
-		/// <param name="keyVaultClient">Exsisting KeyVault client instance</param>
-		/// <param name="cachingDurationSeconds">Optional caching duration in seconds. Omit the parameter or use 0 for infinite caching (no expiration)</param>
-		public KeyVaultCache(KeyVaultClient keyVaultClient, uint cachingDurationSeconds = 0) : this(keyVaultClient,
+		/// <param name="keyVaultClient">Existing KeyVault client instance</param>
+		/// <param name="cachingDurationSeconds">Cching duration in seconds. Use 0 for infinite caching (no expiration)</param>
+		public KeyVaultCache(KeyVaultClient keyVaultClient, uint cachingDurationSeconds) : this(keyVaultClient,
 			TimeSpan.FromSeconds(cachingDurationSeconds))
 		{
 		}
 
+
+
+		/// <summary>
+		/// Create a new instance of KeyVaultCache without defining expiration (cached values do not expire)
+		/// </summary>
+		/// <param name="keyVaultClient">Existing KeyVault client instance</param>
+		public KeyVaultCache(KeyVaultClient keyVaultClient) : this(keyVaultClient, TimeSpan.Zero)
+		{
+		}
 
 		/// <summary>
 		/// Remove specific item from cache. Does not get error when the item does not exist in cache
@@ -49,11 +58,18 @@ namespace Sander.KeyVaultCache
 			_keyFetcher.Remove(name);
 		}
 
+		/// <summary>
+		/// Remove all entries from cache.
+		/// </summary>
+		public void Clear()
+		{
+			_keyFetcher.Clear();
+		}
 
 		/// <summary>
 		/// Get secret bundle (secret value and its metadata), optionally refetching the value
 		/// </summary>
-		/// <param name="name">Name in Azure KeyVault</param>
+		/// <param name="name">Full URL to the entry in Azure KeyVault</param>
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<SecretBundle> GetSecretBundle(string name, bool forceRefetch = false)
 		{
@@ -64,7 +80,7 @@ namespace Sander.KeyVaultCache
 		/// <summary>
 		/// Get certificate bundle (certificate and its metadata), optionally refetching the value
 		/// </summary>
-		/// <param name="name">Name in Azure KeyVault</param>
+		/// <param name="name">Full URL to the entry in Azure KeyVault</param>
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<CertificateBundle> GetCertificateBundle(string name, bool forceRefetch = false)
 		{
@@ -75,7 +91,7 @@ namespace Sander.KeyVaultCache
 		/// <summary>
 		/// Get key bundle (key and its metadata), optionally refetching the value
 		/// </summary>
-		/// <param name="name">Name in Azure KeyVault</param>
+		/// <param name="name">Full URL to the entry in Azure KeyVault</param>
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<KeyBundle> GetKeyBundle(string name, bool forceRefetch = false)
 		{
@@ -86,7 +102,7 @@ namespace Sander.KeyVaultCache
 		/// <summary>
 		/// Get secret value, optionally forcing the refetch from Azure
 		/// </summary>
-		/// <param name="name">Name in Azure KeyVault</param>
+		/// <param name="name">Full URL to the entry in Azure KeyVault</param>
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<string> GetSecret(string name, bool forceRefetch = false)
 		{
@@ -98,7 +114,7 @@ namespace Sander.KeyVaultCache
 		/// <summary>
 		/// Get certificate value as a byte array, optionally forcing the refetch from Azure
 		/// </summary>
-		/// <param name="name">Name in Azure KeyVault</param>
+		/// <param name="name">Full URL to the entry in Azure KeyVault</param>
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<byte[]> GetCertificate(string name, bool forceRefetch = false)
 		{
@@ -110,7 +126,7 @@ namespace Sander.KeyVaultCache
 		/// <summary>
 		/// Get key/JsonWebKey, optionally forcing the refetch from Azure
 		/// </summary>
-		/// <param name="name">Name in Azure KeyVault</param>
+		/// <param name="name">Full URL to the entry in Azure KeyVault</param>
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<JsonWebKey> GetKey(string name, bool forceRefetch = false)
 		{

@@ -4,6 +4,9 @@
         <name>Sander.KeyVaultCache</name>
     </assembly>
     <members>
+        <member name="M:Sander.KeyVaultCache.KeyFetcher.#ctor(Microsoft.Azure.KeyVault.KeyVaultClient,System.TimeSpan)">
+            <inheritdoc />
+        </member>
         <member name="T:Sander.KeyVaultCache.KeyVaultCache">
             <summary>
             Key vault cache. Use this class as singleton/static per KeyVault instance
@@ -11,24 +14,77 @@
         </member>
         <member name="M:Sander.KeyVaultCache.KeyVaultCache.#ctor(Microsoft.Azure.KeyVault.KeyVaultClient,System.TimeSpan)">
             <summary>
-            Create a new instance of KeyVaultCache, optionally defining expiration duration for caching
-            <para>Omitting the duration or using in the default TimeSpan instance marks infinite duration (no expiration)</para>
+            Create a new instance of KeyVaultCache, defining expiration duration for caching
+            <para>Use TimeSpan.Zero for infinite duration (no expiration)</para>
             </summary>
-            <param name="keyVaultClient">Exsisting KeyVault client instance</param>
-            <param name="cachingDuration">Optional caching duration. Omit the parameter for infinite caching (no expiration)</param>
+            <param name="keyVaultClient">Existing KeyVault client instance</param>
+            <param name="cachingDuration">Caching duration. Use TimeSpan.Zero for infinite caching (no expiration)</param>
         </member>
         <member name="M:Sander.KeyVaultCache.KeyVaultCache.#ctor(Microsoft.Azure.KeyVault.KeyVaultClient,System.UInt32)">
             <summary>
-            Create a new instance of KeyVaultCache, optionally defining expiration duration for caching
-            <para>Omitting the cachingDurationSeconds or using in 0 results infinite duration (no expiration)</para>
+            Create a new instance of KeyVaultCache, defining expiration duration for caching in seconds)
+            <para>Using expiration of 0 seconds results infinite duration (no expiration)</para>
             </summary>
-            <param name="keyVaultClient">Exsisting KeyVault client instance</param>
-            <param name="cachingDurationSeconds">Optional caching duration in seconds. Omit the parameter or use 0 for infinite caching (no expiration)</param>
+            <param name="keyVaultClient">Existing KeyVault client instance</param>
+            <param name="cachingDurationSeconds">Cching duration in seconds. Use 0 for infinite caching (no expiration)</param>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.#ctor(Microsoft.Azure.KeyVault.KeyVaultClient)">
+            <summary>
+            Create a new instance of KeyVaultCache without defining expiration (cached values do not expire)
+            </summary>
+            <param name="keyVaultClient">Existing KeyVault client instance</param>
         </member>
         <member name="M:Sander.KeyVaultCache.KeyVaultCache.Remove(System.String)">
             <summary>
-            Remove specific item from cache
+            Remove specific item from cache. Does not get error when the item does not exist in cache
             </summary>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.Clear">
+            <summary>
+            Remove all entries from cache.
+            </summary>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.GetSecretBundle(System.String,System.Boolean)">
+            <summary>
+            Get secret bundle (secret value and its metadata), optionally refetching the value
+            </summary>
+            <param name="name">Full URL to the entry in Azure KeyVault</param>
+            <param name="forceRefetch">Set to true to force refetch from Azure</param>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.GetCertificateBundle(System.String,System.Boolean)">
+            <summary>
+            Get certificate bundle (certificate and its metadata), optionally refetching the value
+            </summary>
+            <param name="name">Full URL to the entry in Azure KeyVault</param>
+            <param name="forceRefetch">Set to true to force refetch from Azure</param>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.GetKeyBundle(System.String,System.Boolean)">
+            <summary>
+            Get key bundle (key and its metadata), optionally refetching the value
+            </summary>
+            <param name="name">Full URL to the entry in Azure KeyVault</param>
+            <param name="forceRefetch">Set to true to force refetch from Azure</param>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.GetSecret(System.String,System.Boolean)">
+            <summary>
+            Get secret value, optionally forcing the refetch from Azure
+            </summary>
+            <param name="name">Full URL to the entry in Azure KeyVault</param>
+            <param name="forceRefetch">Set to true to force refetch from Azure</param>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.GetCertificate(System.String,System.Boolean)">
+            <summary>
+            Get certificate value as a byte array, optionally forcing the refetch from Azure
+            </summary>
+            <param name="name">Full URL to the entry in Azure KeyVault</param>
+            <param name="forceRefetch">Set to true to force refetch from Azure</param>
+        </member>
+        <member name="M:Sander.KeyVaultCache.KeyVaultCache.GetKey(System.String,System.Boolean)">
+            <summary>
+            Get key/JsonWebKey, optionally forcing the refetch from Azure
+            </summary>
+            <param name="name">Full URL to the entry in Azure KeyVault</param>
+            <param name="forceRefetch">Set to true to force refetch from Azure</param>
         </member>
     </members>
 </doc>
