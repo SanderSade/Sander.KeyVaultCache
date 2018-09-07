@@ -3,7 +3,7 @@
 
 
 ## Introduction
-KeyVaultCache is a cache as a read-only system-of-record pattern implementation for [Azure Key Vault](https://azure.microsoft.com/en-us/services/key-vault/).
+KeyVaultCache is read-only cache as system-of-record pattern implementation for [Azure Key Vault](https://azure.microsoft.com/en-us/services/key-vault/).
 
 What this means in humanese is that KeyVaultCache takes care of fetching and caching of the values from the Azure Key Vault.
 
