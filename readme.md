@@ -81,7 +81,11 @@ For example, if our resource is Azure Storage account, we have primary accesskey
 ## FAQ
 * How to use KeyVaultCache methods from non-async method?  
 `var secret = Shared.KeyVaultCache.GetSecret("url-here").GetAwaiter().GetResult();`
-
+* How to manually remove value from cache?  
+`keyVaultCache.Remove("url-here");` will remove just the specified value.  
+`keyVaultCache.Clear();` removes all cached entries.
+Both operations are thread-safe.
+  
 
 
 
