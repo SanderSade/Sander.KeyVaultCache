@@ -7,7 +7,7 @@ KeyVaultCache is read-only cache as system-of-record pattern implementation for 
 
 What this means in humanese is that KeyVaultCache takes care of fetching and caching of the values from the Azure Key Vault.
 
-As secrets and certificates change very rarely, it makes sense to cache them, as fetching is a relatively slow operation - if the Key Vault is in the same data center, it takes 100...300ms, but fetching value from geographically distant Azure data center can take a second or even more.
+As secrets and certificates change very rarely, it makes sense to cache them, as fetching is a relatively slow operation - if the Key Vault is in the same data center, it takes 100...300ms, but fetching value from geographically distant Azure data center can take a second or even more. With the caching, getting the value becomes sub-millisecond operation.
 
 KeyVaultCache simplifies the fetching and caching of the values from Key Vault. It is fully thread-safe, has on-demand re-fetching and supports cache expiration (entries expire after specified time).
 
@@ -22,7 +22,7 @@ KeyVaultCache simplifies the fetching and caching of the values from Key Vault. 
 * .NET Standard 2.0, meaning KeyVaultCache can be used with .NET Framework 4.6.1+, .NET Core 2.0 and more - see [here](https://github.com/dotnet/standard/blob/master/docs/versions.md) for detailed information.
 
 #### Dependencies
-* [Microsoft.Azure.KeyVault](https://www.nuget.org/packages/Microsoft.Azure.KeyVault/) 3+ recommended, 2.0.6 or newer required
+* [Microsoft.Azure.KeyVault](https://www.nuget.org/packages/Microsoft.Azure.KeyVault/) 3+ recommended, 2.3.2 or newer required
 * [System.Runtime.Caching](https://www.nuget.org/packages/System.Runtime.Caching/) 4.5.0+
 
 ## Use & examples

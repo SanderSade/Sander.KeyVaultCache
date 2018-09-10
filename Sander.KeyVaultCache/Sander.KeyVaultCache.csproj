@@ -3,12 +3,26 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <NeutralLanguage>en</NeutralLanguage>
-    <Copyright>Sander Säde 2018</Copyright>
+    <Copyright>© Sander Säde 2018</Copyright>
     <Authors>Sander Säde</Authors>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>As secrets and certificates change very rarely, it makes sense to cache them, as fetching is a relatively slow operation - if the Key Vault is in the same data center, it takes 100...300ms, but fetching value from geographically distant Azure data center can take a second or even more. With the caching, getting the value becomes sub-millisecond operation.
+
+KeyVaultCache simplifies the fetching and caching of the values from Key Vault. It is fully thread-safe, has on-demand re-fetching and supports cache expiration (entries expire after specified time).</Description>
+    <PackageLicenseUrl>https://github.com/SanderSade/Sander.KeyVaultCache/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/SanderSade/Sander.KeyVaultCache</PackageProjectUrl>
+    <PackageIconUrl>https://img.shields.io/badge/KeyVault-Cache-lightgrey.svg</PackageIconUrl>
+    <RepositoryUrl>https://github.com/SanderSade/Sander.KeyVaultCache</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>azure-keyvault key_vault key_vault_cache</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>C:\Users\sasde\source\repos\Sander.KeyVaultCache\Sander.KeyVaultCache\Sander.KeyVaultCache.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\Sander.KeyVaultCache.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Azure.KeyVault" Version="2.3.2" />
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
   </ItemGroup>
 
