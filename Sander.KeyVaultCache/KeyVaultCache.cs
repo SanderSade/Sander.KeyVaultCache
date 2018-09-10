@@ -73,7 +73,7 @@ namespace Sander.KeyVaultCache
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<SecretBundle> GetSecretBundle(string name, bool forceRefetch = false)
 		{
-			return await _keyFetcher.GetBundle<SecretBundle>(name, forceRefetch);
+			return await _keyFetcher.GetBundle<SecretBundle>(name, forceRefetch).ConfigureAwait(false);
 		}
 
 
@@ -84,7 +84,7 @@ namespace Sander.KeyVaultCache
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<CertificateBundle> GetCertificateBundle(string name, bool forceRefetch = false)
 		{
-			return await _keyFetcher.GetBundle<CertificateBundle>(name, forceRefetch);
+			return await _keyFetcher.GetBundle<CertificateBundle>(name, forceRefetch).ConfigureAwait(false);
 		}
 
 
@@ -95,7 +95,7 @@ namespace Sander.KeyVaultCache
 		/// <param name="forceRefetch">Set to true to force refetch from Azure</param>
 		public async Task<KeyBundle> GetKeyBundle(string name, bool forceRefetch = false)
 		{
-			return await _keyFetcher.GetBundle<KeyBundle>(name, forceRefetch);
+			return await _keyFetcher.GetBundle<KeyBundle>(name, forceRefetch).ConfigureAwait(false);
 		}
 
 

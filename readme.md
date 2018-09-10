@@ -68,7 +68,7 @@ public async Task<string> GetUsername(long userId, bool isRetry = false)
 	}
 }
 ```
-In this example we create an instance of the KeyVaultCache where all cached values will expire in 15 minutes after initial fetching, so next request for cached value will re-fetch the value from Azure and cache it again for 15 minutes.
+In this example we create an instance of the KeyVaultCache where all cached values will expire in 15 minutes after initial fetching, so next request for value will re-fetch it from Azure and cache again for 15 minutes.
 
 The method GetUsername() has parameter isRetry with a default value of false. This allows us to implement a very simple retry mechanism - if the initial (isRetry == false) username request fails with exception, we'll try once more. And the second attempt with isRetry == true also re-requests the certificate from the Azure Key Vault - maybe a new certificate was added to the data store and Key Vault.
 
@@ -83,8 +83,7 @@ For example, if our resource is Azure Storage account, we have primary accesskey
 >`var secret = Shared.KeyVaultCache.GetSecret("url-here").GetAwaiter().GetResult();`
 * How to manually remove value from cache?  
 >`keyVaultCache.Remove("url-here");` will remove just the specified value.  
->`keyVaultCache.Clear();` removes all cached entries.  
-Both operations are thread-safe.
+>`keyVaultCache.Clear();` removes all cached entries.  Both operations are thread-safe.
   
 
 
