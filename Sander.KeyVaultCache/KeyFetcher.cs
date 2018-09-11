@@ -36,6 +36,7 @@ namespace Sander.KeyVaultCache
 			var semaphore = _locks.GetOrAdd(string.Intern(name), new SemaphoreSlim(1, 1));
 
 			semaphore.Wait(_kvWaitTime);
+			Debug.WriteLine($"[{DateTimeOffset.UtcNow:O}] Removing {name} from cache");
 
 			_valueCache.Remove(name);
 
@@ -57,17 +58,16 @@ namespace Sander.KeyVaultCache
 				await semaphore.WaitAsync(_kvWaitTime)
 							   .ConfigureAwait(false); //if there is no response by this time, the previous request has gone bad
 
-				if (forceRefetch)
-					_valueCache.Remove(name);
-
 				try
 				{
-					if (!_valueCache.Contains(name))
+					if (forceRefetch || !_valueCache.Contains(name))
 					{
+						_valueCache.Remove(name);
+
 						var value = await FetchValue<T>(name);
 
 						if (value == null)
-							throw new NullReferenceException($"KeyVault request {typeof(T).Name} for \"{name}\" returned null!");
+							throw new NullReferenceException($"Key Vault request {typeof(T).Name} for \"{name}\" returned null!");
 
 						var cachePolicy = new CacheItemPolicy();
 

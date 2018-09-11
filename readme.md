@@ -8,9 +8,9 @@ KeyVaultCache is read-only cache as system-of-record pattern implementation for 
 
 What this means in humanese is that KeyVaultCache takes care of fetching and caching of the values from the Azure Key Vault.
 
-As secrets and certificates change very rarely, it makes sense to cache them, as fetching is a relatively slow operation - if the Key Vault is in the same data center, it takes 100...300ms, but fetching value from geographically distant Azure data center can take a second or even more. With the caching, getting the value becomes sub-millisecond operation.
+Since secrets and certificates change very rarely, it is useful to cache them, as fetching is a relatively slow operation - if the Key Vault is in the same data center, it takes 100...300ms, but fetching value from geographically distant Azure data center can take a second or even more. With the caching, getting the value becomes a sub-millisecond operation.
 
-KeyVaultCache simplifies the fetching and caching of the values from Key Vault. It is fully thread-safe, has on-demand re-fetching and supports cache expiration (entries expire after specified time).
+KeyVaultCache simplifies the fetching and caching of the values from the Key Vault. It is fully thread-safe, has on-demand re-fetching and supports cache expiration (entries expire after specified time).
 
 
 ## Features
@@ -92,3 +92,4 @@ For example, if our resource is Azure Storage account, we have primary accesskey
 
 ## Changelog
 * 1.0.0 Initial release
+* [Unreleased] 1.0.1 Minor code optimizations to simplify locking logic

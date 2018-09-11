@@ -1,29 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
-  <metadata>
-    <id>Sander.KeyVaultCache</id>
-    <version>1.0.0</version>
-    <authors>Sander Säde</authors>
-    <owners>Sander Säde</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <licenseUrl>https://github.com/SanderSade/Sander.KeyVaultCache/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/SanderSade/Sander.KeyVaultCache</projectUrl>
-    <iconUrl>https://img.shields.io/badge/KeyVault-Cache-lightgrey.svg</iconUrl>
-    <description>As secrets and certificates change very rarely, it makes sense to cache them, as fetching is a relatively slow operation - if the Key Vault is in the same data center, it takes 100...300ms, but fetching value from geographically distant Azure data center can take a second or even more. With the caching, getting the value becomes sub-millisecond operation.
+	<metadata>
+		<id>Sander.KeyVaultCache</id>
+		<version>1.0.1</version>
+		<authors>Sander Säde</authors>
+		<owners>Sander Säde</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<licenseUrl>https://github.com/SanderSade/Sander.KeyVaultCache/blob/master/LICENSE</licenseUrl>
+		<projectUrl>https://github.com/SanderSade/Sander.KeyVaultCache</projectUrl>
+		<iconUrl>https://img.shields.io/badge/KeyVault-Cache-lightgrey.svg</iconUrl>
+		<description>Since secrets and certificates stored in Azure Key Vault change very rarely, it is useful to cache them, as fetching is a relatively slow operation - if the Key Vault is in the same data center, it takes 100...300ms, but fetching the value from geographically distant Azure data center can take a second or even more.
 
-KeyVaultCache simplifies the fetching and caching of the values from Key Vault. It is fully thread-safe, has on-demand re-fetching and supports cache expiration (entries expire after specified time).</description>
-    <copyright>© Sander Säde 2018</copyright>
-    <tags>azure-keyvault key_vault key_vault_cache</tags>
-    <repository type="GitHub" url="https://github.com/SanderSade/Sander.KeyVaultCache" />
-    <dependencies>
-      <group targetFramework=".NETStandard2.0">
-        <dependency id="Microsoft.Azure.KeyVault" version="2.3.2" exclude="Build,Analyzers" />
-        <dependency id="System.Runtime.Caching" version="4.5.0" exclude="Build,Analyzers" />
-      </group>
-    </dependencies>
-  </metadata>
-   <files>
+With the caching, getting the value becomes a sub-millisecond operation.
+
+KeyVaultCache simplifies the fetching and caching of the values from the Key Vault. It is fully thread-safe, has on-demand re-fetching and supports cache expiration (entries expire after specified time).</description>
+		<copyright>© Sander Säde 2018</copyright>
+		<tags>azure-keyvault key_vault key_vault_cache</tags>
+		<repository type="GitHub" url="https://github.com/SanderSade/Sander.KeyVaultCache" />
+		<dependencies>
+			<group targetFramework=".NETStandard2.0">
+				<dependency id="Microsoft.Azure.KeyVault" version="2.3.2" exclude="Build,Analyzers" />
+				<dependency id="System.Runtime.Caching" version="4.5.0" exclude="Build,Analyzers" />
+			</group>
+		</dependencies>
+	</metadata>
+	 <files>
 	<file src="Sander.KeyVaultCache\bin\Release\netstandard2.0\Sander.KeyVaultCache.dll" target="lib\netstandard2.0" />
-    <file src="Sander.KeyVaultCache\bin\Release\netstandard2.0\Sander.KeyVaultCache.xml" target="lib\netstandard2.0" />    
-  </files>
-</package> 
+		<file src="Sander.KeyVaultCache\bin\Release\netstandard2.0\Sander.KeyVaultCache.xml" target="lib\netstandard2.0" />
+	</files>
+</package>

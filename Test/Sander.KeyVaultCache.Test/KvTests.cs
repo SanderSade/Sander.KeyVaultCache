@@ -158,5 +158,26 @@ namespace Sander.KeyVaultCache.Test
 			          .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
 			          .ForAll(i => { _kv.GetSecret(_secret1, i % 3 == 0).GetAwaiter().GetResult(); });
 		}
+
+
+
+		/// <summary>
+		/// Just eyeballing the results here
+		/// </summary>
+		[TestMethod]
+		public void MultiThreadedWithRemove()
+		{
+			Enumerable.Range(0, 16)
+			          .AsParallel()
+			          .WithDegreeOfParallelism(16)
+			          .WithExecutionMode(ParallelExecutionMode.ForceParallelism)
+			          .ForAll(i =>
+			                  {
+								  if (i % 5 == 0)
+									  _kv.Remove(_secret1);
+
+				                  _kv.GetSecret(_secret1, false).GetAwaiter().GetResult();
+			                  });
+		}
 	}
 }
