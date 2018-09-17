@@ -1,6 +1,6 @@
 [![GitHub license](https://img.shields.io/badge/licence-MPL%202.0-brightgreen.svg)](https://github.com/SanderSade/UrlShortener/blob/master/LICENSE)
 [![NetStandard 2.0](https://img.shields.io/badge/-.NET%20Standard%202.0-green.svg)](https://github.com/dotnet/standard/blob/master/docs/versions/netstandard2.0.md)
-[![NuGet v1.0.0](https://img.shields.io/badge/NuGet-v1.0.0-lightgrey.svg)](https://www.nuget.org/packages/Sander.KeyVaultCache/)
+[![NuGet v1.1.0](https://img.shields.io/badge/NuGet-v1.1.0-lightgrey.svg)](https://www.nuget.org/packages/Sander.KeyVaultCache/)
 
 
 ## Introduction
@@ -92,4 +92,7 @@ For example, if our resource is Azure Storage account, we have primary accesskey
 
 ## Changelog
 * 1.0.0 Initial release
-* [Unreleased] 1.0.1 Minor code optimizations to simplify locking logic
+* 1.1.0 
+  * Using IKeyVaultClient in constructor to simplify unit testing by consumer projects
+  * Minor code optimizations to simplify locking logic
+  * Clarify descriptions for both NuGet and readme.md

@@ -20,7 +20,7 @@ namespace Sander.KeyVaultCache
 		/// </summary>
 		/// <param name="keyVaultClient">Existing KeyVault client instance</param>
 		/// <param name="cachingDuration">Caching duration. Use TimeSpan.Zero for infinite caching (no expiration)</param>
-		public KeyVaultCache(KeyVaultClient keyVaultClient, TimeSpan cachingDuration)
+		public KeyVaultCache(IKeyVaultClient keyVaultClient, TimeSpan cachingDuration)
 		{
 			if (keyVaultClient == null)
 				throw new NullReferenceException($"{nameof(keyVaultClient)} is null!");
@@ -35,7 +35,7 @@ namespace Sander.KeyVaultCache
 		/// </summary>
 		/// <param name="keyVaultClient">Existing KeyVault client instance</param>
 		/// <param name="cachingDurationSeconds">Cching duration in seconds. Use 0 for infinite caching (no expiration)</param>
-		public KeyVaultCache(KeyVaultClient keyVaultClient, uint cachingDurationSeconds) : this(keyVaultClient,
+		public KeyVaultCache(IKeyVaultClient keyVaultClient, uint cachingDurationSeconds) : this(keyVaultClient,
 			TimeSpan.FromSeconds(cachingDurationSeconds))
 		{
 		}
@@ -46,7 +46,7 @@ namespace Sander.KeyVaultCache
 		/// Create a new instance of KeyVaultCache without defining expiration (cached values do not expire)
 		/// </summary>
 		/// <param name="keyVaultClient">Existing KeyVault client instance</param>
-		public KeyVaultCache(KeyVaultClient keyVaultClient) : this(keyVaultClient, TimeSpan.Zero)
+		public KeyVaultCache(IKeyVaultClient keyVaultClient) : this(keyVaultClient, TimeSpan.Zero)
 		{
 		}
 

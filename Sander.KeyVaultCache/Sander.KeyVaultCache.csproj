@@ -15,7 +15,7 @@ KeyVaultCache simplifies the fetching and caching of the values from Key Vault. 
     <RepositoryUrl>https://github.com/SanderSade/Sander.KeyVaultCache</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>azure-keyvault key_vault key_vault_cache</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

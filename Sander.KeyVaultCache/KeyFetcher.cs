@@ -15,14 +15,14 @@ namespace Sander.KeyVaultCache
 	internal sealed class KeyFetcher
 	{
 		private readonly TimeSpan _cachingDuration;
-		private readonly KeyVaultClient _keyVaultClient;
+		private readonly IKeyVaultClient _keyVaultClient;
 		private readonly ConcurrentDictionary<string, SemaphoreSlim> _locks;
 		private readonly MemoryCache _valueCache;
 		private readonly TimeSpan _kvWaitTime = TimeSpan.FromSeconds(16);
 
 
 		/// <inheritdoc />
-		internal KeyFetcher(KeyVaultClient keyVaultClient, TimeSpan cachingDuration)
+		internal KeyFetcher(IKeyVaultClient keyVaultClient, TimeSpan cachingDuration)
 		{
 			_keyVaultClient = keyVaultClient;
 			_cachingDuration = cachingDuration;
